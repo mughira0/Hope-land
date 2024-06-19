@@ -1,0 +1,73 @@
+.normal {
+  font-size: 17px;
+  font-weight: 500;
+  padding: 17px 55px;
+  background-color: var(--btn-color);
+  color: var(--white-color);
+  text-decoration: none;
+  position: relative;
+  font-family: var(--ff-primary-bold);
+  display: block;
+  overflow: hidden;
+  border: none;
+  transition: 0.3s;
+  z-index: 1;
+}
+.normal:hover {
+  background-color: #1685b6;
+}
+.cutHover {
+  font-size: 17px;
+  font-weight: 500;
+  padding: 17px 55px;
+  background-color: var(--btn-color);
+  color: var(--white-color);
+  text-decoration: none;
+  position: relative;
+  font-family: var(--ff-primary-bold);
+  display: block;
+  overflow: hidden;
+  border: none;
+  z-index: 1;
+}
+
+.cutHover::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  border-bottom: 80px solid #1685b6;
+  right: -50px;
+  border-right: 50px solid transparent;
+  transform: translateX(-100%);
+  transition: 0.5s;
+  width: 0;
+  z-index: -1;
+}
+
+.cutHover::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border-bottom: 80px solid #1685b6;
+  right: -98px;
+  border-left: 50px solid transparent;
+  transform: translateX(-100%);
+  transition: 0.5s;
+  width: 0;
+  z-index: -1;
+}
+
+.cutHover:hover::before {
+  transform: translateX(-10%);
+  right: 0;
+  width: 100%;
+}
+
+.cutHover:hover::after {
+  transform: translateX(19%);
+  right: 0;
+  width: 100%;
+}

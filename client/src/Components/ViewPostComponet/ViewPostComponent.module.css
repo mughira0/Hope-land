@@ -1,0 +1,42 @@
+.profilePhotoDiv {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}
+.main {
+  margin-block: 50px;
+}
+.profilePhotoDiv > img {
+  height: 100%;
+  object-fit: contain;
+  width: 100%;
+}
+.header {
+  display: flex;
+  gap: 10px;
+}
+.right {
+  display: flex;
+  gap: 30px;
+}
+.tagDiv {
+  gap: 5 px;
+  display: flex;
+}
+.tagDiv > p {
+  font-family: "poppin-bold";
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.contentPhotos {
+  height: 400px;
+}
+
+.contentPhotos > img {
+  height: 100%;
+  object-fit: contain;
+  width: 100%;
+}

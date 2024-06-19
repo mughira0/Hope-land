@@ -1,0 +1,12 @@
+export { default as logo } from "../Assets/Images/logo.jpeg";
+export { default as userAvatar } from "../Assets/Images/profile.jpg";
+export { default as property1 } from "../Assets/Images/property1.jpg";
+export { default as property10 } from "../Assets/Images/property10.jpg";
+export { default as property2 } from "../Assets/Images/property2.jpg";
+export { default as property3 } from "../Assets/Images/property3.jpg";
+export { default as property4 } from "../Assets/Images/property4.jpg";
+export { default as property5 } from "../Assets/Images/property5.jpg";
+export { default as property6 } from "../Assets/Images/property6.jpg";
+export { default as property7 } from "../Assets/Images/property7.jpg";
+export { default as property8 } from "../Assets/Images/property8.jpg";
+export { default as property9 } from "../Assets/Images/property9.jpg";

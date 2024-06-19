@@ -1,0 +1,8 @@
+.popperDiv {
+  display: flex;
+  flex-direction: column;
+}
+.popperDiv > p {
+  margin-bottom: 5px;
+  font-size: 13px;
+}
