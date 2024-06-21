@@ -7,6 +7,7 @@ import "../node_modules/react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import Loader from "./Components/Loader";
 import BeforeLoginRoute from "./Helper/BeforeLoginRoute";
+import SellerDashboard from "./Screens/SellerDashboard/index"
 
 const Login = lazy(() => import("./Screens/Login"));
 const Signup = lazy(() => import("./Screens/Signup"));
@@ -32,6 +33,7 @@ function App() {
               element={<BeforeLoginRoute file={<Signup />} />}
             />
             <Route path="/" exact element={<Home />} />
+            <Route path="/seller" element={<SellerDashboard/>}/>
             {/* <Route path="/courses" exact element={<Courses />} /> */}
             {/* <Route
               path="/courses"

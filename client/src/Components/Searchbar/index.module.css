@@ -1,0 +1,53 @@
+.searchbar {
+    width: 70%;
+    height: 65%;
+    background-color: rgb(240, 238, 238);
+    border-radius: 20px;
+    padding-left: 2%;
+    padding-right: 1%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.searchbar input {
+    width: 86%;
+    height: 85%;
+    border: transparent;
+    background-color: transparent;
+    border-right: 1px solid rgb(178, 176, 176);
+    padding-left: 3%;
+}
+
+.searchbar button {
+    margin-right: 1%;
+    background-color: transparent;
+    border: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width: 700px) {
+    .searchbar {
+        width: auto;
+        height: auto;
+        background-color: transparent;
+        border-radius: 50%;
+        padding: 0;
+        justify-content: center;
+    }
+
+    .searchbar input {
+        display: none;
+    }
+
+    .searchbar button {
+        width: 40px;
+        height: 40px;
+        background-color: rgb(240, 238, 238);
+        border-radius: 50%;
+        margin-right: 0;
+    }
+}

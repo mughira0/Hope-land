@@ -12,7 +12,7 @@
 }
 @font-face {
   font-family: "bold";
-  src: url("./Assets/Font/static/PermanentMarker-Regular.ttf");
+  src: url("./Assets/Font/static/PlayfairDisplay-Bold.otf");
 }
 @font-face {
   font-family: "poppin-semiBold";
@@ -24,7 +24,7 @@
 }
 @font-face {
   font-family: "regular";
-  src: url("./Assets/Font/static/PlaywriteAUQLD-Light.ttf");
+  src: url("./Assets/Font/static/Exo-Medium.otf");
 }
 * {
   padding: 0;
@@ -53,7 +53,7 @@ body h4 {
   font-family: "bold";
 }
 body h5 {
-  font-size: 25px;
+  font-size: 27px;
   font-weight: 500;
   font-family: "bold";
 }
@@ -104,7 +104,7 @@ a {
     font-size: 33px;
   }
   body h5 {
-    font-size: 22px;
+    font-size: 28px;
   }
   body h6 {
     font-size: 20px;
