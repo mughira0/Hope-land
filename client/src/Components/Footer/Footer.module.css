@@ -19,8 +19,6 @@
   z-index: 1;
 }
 .pageMain {
-  /* background-color: red; */
-  /* background-image: url(../../Assets/Images/footerBg.jpg); */
   background-size: 100% 100%;
   width: 100%;
   height: 100%;
@@ -29,7 +27,8 @@
 .pageMain::after {
   content: "";
   /* background: #000000d1; */
-  background-color: rgb(32, 32, 32);
+  background-color:black;
+  /* background-color: rgb(32, 32, 32); */
   position: absolute;
   width: 100%;
   height: 100%;
@@ -119,8 +118,9 @@
   height: 100%;
 }
 .logoMian {
-  width: 180px;
+  width: 250px;
   height: 60px;
+  color:white;
 }
 .logoMian img {
   width: 100%;

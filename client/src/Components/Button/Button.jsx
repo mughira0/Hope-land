@@ -1,5 +1,6 @@
 import React from "react";
 import classes from "./Button.module.css";
+
 const Button = ({
   label,
   className,
@@ -19,7 +20,7 @@ const Button = ({
           className && className,
         ].join(" ")}
       >
-        {label && label}
+        {label}
       </button>
     </>
   );

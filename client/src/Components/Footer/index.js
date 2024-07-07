@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import classes from "./Footer.module.css";
-import { Logoo, logo } from "../../Constant/ImagePath";
+import { logo } from "../../Constant/ImagePath";
 import { Col, Container, Row } from "react-bootstrap";
 import { MdEmail, MdLocalPhone, MdLocationOn } from "react-icons/md";
 import { footerCity } from "../../Constant/ImagePath";
@@ -25,7 +25,8 @@ const Footer = () => {
                         onClick={() => navigate("/")}
                         className={classes.logoMian}
                       >
-                        <img src={Logoo} />
+                        <h2>Hope Land</h2>
+                        {/* <img src={logo} /> */}
                       </div>
                     </div>
                   </Link>

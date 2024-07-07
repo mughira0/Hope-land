@@ -1,9 +1,6 @@
 import React from 'react'
-import SellerSidebar from '../../Components/SellerSidebar/index'
 import SidebarSkeleton from '../../Components/SidebarSkeleton'
-import SellerNavbar from '../../Components/SellerNavbar/index'
 import classes from './index.module.css'
-import banner from '../../Assets/Images/banner.png'
 function SellerDashboard() {
   return (
     <div className={classes.dash}>
