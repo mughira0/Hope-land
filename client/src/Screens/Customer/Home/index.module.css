@@ -44,9 +44,10 @@
   width: 100%;
   height: 100vh;
   display: flex;
-  justify-content: space-around;
   padding: 3% 3% 0 3%;
   box-sizing: border-box;
+  overflow-x: hidden;
+  justify-content: space-around;
 }
 
 .card {
@@ -59,7 +60,7 @@
 .card_top {
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
-  background-image: url("../../../Assets/Images/property1.jpg");
+  background-image: url("../../Assets/Images/property1.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

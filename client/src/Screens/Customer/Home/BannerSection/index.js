@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import property5 from "../../../../Assets/Images/property5.jpg";
 import Button from "../../../../Components/Button/Button";
+import DropDown from "../../../Components/DropDown";
 import classes from "./BannerSection.module.css";
 
 function BannerSection() {
@@ -31,6 +32,43 @@ function BannerSection() {
     border: "1px solid white",
   };
 
+  // const search_style = {
+  //   zindex: -1,
+  //   backgroundColor: 'rgb(144,144,144)',
+  //   color: 'white',
+  //   fontSize: 'larger',
+  //   width: '100%',
+  //   height: '6vh',
+  //   borderRadius: '10px',
+  //   display: 'flex',
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  //   border: '1px solid white'
+  // };
+
+  // Define options for the DropDown component
+  const propertyOptions = [
+    { value: "All", label: "All" },
+    { value: "House", label: "House" },
+    { value: "Flat", label: "Flat" },
+    { value: "Plot", label: "Plot" },
+  ];
+
+  const countryOptions = [
+    { value: "All", label: "All" },
+    { value: "Pakistan", label: "Pakistan" },
+    { value: "United Kingdom", label: "United Kingdom" },
+    { value: "America", label: "America" },
+    { value: "Bangladesh", label: "Bangladesh" },
+  ];
+
+  const cityOptions = [
+    { value: "All", label: "All" },
+    { value: "House", label: "House" },
+    { value: "Flat", label: "Flat" },
+    { value: "Plot", label: "Plot" },
+  ];
+
   return (
     <div className={classes.banner}>
       <div className={classes.imgDiv}>
@@ -50,38 +88,21 @@ function BannerSection() {
       <div className={classes.filter}>
         <h6>Find Your Dream House at Affordable Prices</h6>
 
-        <select className={classes.option} name="options">
-          <option value="" disabled selected>
-            Property Type
-          </option>
-          <option value="All">All</option>
-          <option value="option1">House</option>
-          <option value="option2">Flat</option>
-          <option value="option3">Plot</option>
-        </select>
-
-        <select className={classes.option} name="options">
-          <option value="" disabled selected>
-            Country
-          </option>
-          <option value="All">All</option>
-          <option value="option1">Pakistan</option>
-          <option value="option2">United Kingdom</option>
-          <option value="option3">America</option>
-          <option value="option4">Bangladesh</option>
-          <option value="option5">Malaysia</option>
-          <option value="option6">Indonesia</option>
-        </select>
-
-        <select className={classes.option} name="options">
-          <option value="" disabled selected>
-            City
-          </option>
-          <option value="All">All</option>
-          <option value="option1">House</option>
-          <option value="option2">Flat</option>
-          <option value="option3">Plot</option>
-        </select>
+        <DropDown
+          label={"Property Type"}
+          option={propertyOptions}
+          placeholder="Select Property Type"
+        />
+        <DropDown
+          label={"Country"}
+          option={countryOptions}
+          placeholder="Select Country"
+        />
+        <DropDown
+          label={"City"}
+          option={cityOptions}
+          placeholder="Select City"
+        />
 
         <div className={classes.rangeContainer}>
           <span>0 USD</span>
