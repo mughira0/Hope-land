@@ -7,7 +7,7 @@ const Button = ({
   onClick,
   disabled,
   customStyle,
-  btnType = "cutHov",
+  btnType = "cutHover",
 }) => {
   return (
     <>

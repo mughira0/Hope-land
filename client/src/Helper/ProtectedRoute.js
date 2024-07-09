@@ -3,15 +3,20 @@ import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom/dist";
 import { toast } from "react-toastify";
 
-const ProtectedRoute = ({ file }) => {
+const ProtectedRoute = ({ file, path }) => {
   const isLogin = useSelector((state) => state?.authReducer?.isLogin);
-  if (!isLogin) {
-    return [
-      <Navigate to="/login" replace />,
-      toast.error("Please Login First"),
-    ];
-  } else {
+  const Routes = {
+    admin: ["/admin-dashboard"],
+    seller: ["/seller-dashboard"],
+  };
+  const { role } = useSelector((state) => state?.authReducer?.user);
+  if (isLogin && Routes[role].includes(path)) {
     return file;
+  } else if (isLogin && !Routes[role].includes(path)) {
+    return [<Navigate to={Routes[role][0]} replace />];
+  } else {
+    toast.error("Please Login First");
+    return <Navigate to="/login" replace />;
   }
   return <></>;
 };

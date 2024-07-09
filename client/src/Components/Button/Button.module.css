@@ -27,7 +27,7 @@
   text-decoration: none;
   position: relative;
   font-family: var(--ff-primary-bold);
-  display: flex; /* Use flexbox to handle icon alignment */
+  display: flex;
   justify-content: center; /* Center content horizontally */
   align-items: center; /* Center content vertically */
   overflow: hidden;

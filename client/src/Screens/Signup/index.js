@@ -4,16 +4,19 @@ import { toast } from "react-toastify";
 import { Post } from "../../AxiosFunction/AxiosFunction";
 import { BaseUrl } from "../../Config/apiUrl";
 import Role from "./Role";
+import SignUpForm from "./SignUpForm";
 import classes from "./Signup.module.css";
 const Signup = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [role, setRole] = useState("");
   const [stepper, setStepper] = useState("Role");
-  const [setPackages] = useState([]);
-  const handleSignup = async () => {
+  const handleSignup = async (params) => {
     const apiUrl = BaseUrl("auth/signup");
-    const body = {};
+    const body = {
+      ...params,
+      role,
+    };
 
     setIsLoading(true);
     const response = await Post(apiUrl, body);
@@ -26,9 +29,11 @@ const Signup = () => {
   };
 
   return (
-    <div className={classes.main}>
-      {stepper === "Role" && <Role setStepper={setStepper} setRole={setRole} />}
-      {stepper === "Form" && <Signup />}
+    <div className={classes.pageMain}>
+      {stepper == "Role" && <Role setStepper={setStepper} setRole={setRole} />}
+      {stepper == "Form" && (
+        <SignUpForm apiCall={isLoading} onClick={handleSignup} />
+      )}
     </div>
   );
 };

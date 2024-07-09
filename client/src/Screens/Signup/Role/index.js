@@ -1,27 +1,30 @@
 import React from "react";
+import { Container } from "react-bootstrap";
 import classes from "./Role.module.css";
 function Role({ setStepper, setRole }) {
   return (
-    <div className={classes.main}>
-      <div
-        className={classes.left}
-        onClick={() => {
-          setRole("Customer");
-          setStepper("Signup");
-        }}
-      >
-        <p>Customer</p>
+    <Container>
+      <div className={classes.main}>
+        <div
+          className={classes.left}
+          onClick={() => {
+            setRole("customer");
+            setStepper("Form");
+          }}
+        >
+          <p>Customer</p>
+        </div>
+        <div
+          className={classes.right}
+          onClick={() => {
+            setRole("seller");
+            setStepper("Form");
+          }}
+        >
+          <p>Seller</p>
+        </div>
       </div>
-      <div
-        className={classes.right}
-        onClick={() => {
-          setRole("Seller");
-          setStepper("Signup");
-        }}
-      >
-        <p>Seller</p>
-      </div>
-    </div>
+    </Container>
   );
 }
 

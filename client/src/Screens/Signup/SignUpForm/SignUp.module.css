@@ -1,0 +1,37 @@
+.rightMain {
+  padding: 30px;
+  overflow: auto;
+}
+.rightMain::-webkit-scrollbar {
+  display: none;
+}
+.headerMain {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logoMian {
+  width: 180px;
+  height: 60px;
+  cursor: pointer;
+}
+.logoMian img {
+  width: 100%;
+  object-fit: cover;
+  height: 100%;
+}
+.sideLogoMain {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.sideLogoMain h3 {
+  margin-bottom: 0;
+  color: var(--black-color);
+  font-size: 23px;
+  font-family: "poppin-medium";
+}
+.sideLogoMain h3 span {
+  color: var(--main-color);
+  font-size: 20px;
+}

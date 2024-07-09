@@ -2,7 +2,6 @@ const jwt = require("jsonwebtoken");
 import userModel from "../models/userModel";
 
 const authMiddleware = async (req, res, next) => {
-  // Get token from request header
   const token = req.header("Authorization");
 
   if (!token) {
@@ -10,10 +9,7 @@ const authMiddleware = async (req, res, next) => {
   }
 
   try {
-    // Verify token
-    const decoded = jwt.verify(token.split(" ")[1], process.env.JWT_SECRET); // Extract token part after 'Bearer'
-
-    // Fetch user from database
+    const decoded = jwt.verify(token.split(" ")[1], process.env.JWT_SECRET);
     const user = await userModel.findById(decoded.id);
 
     if (!user) {

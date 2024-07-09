@@ -7,11 +7,13 @@ import "../node_modules/react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import Loader from "./Components/Loader";
 import BeforeLoginRoute from "./Helper/BeforeLoginRoute";
-import SellerDashboard from "./Screens/SellerDashboard/index"
+import ProtectedRoute from "./Helper/ProtectedRoute";
 
 const Login = lazy(() => import("./Screens/Login"));
 const Signup = lazy(() => import("./Screens/Signup"));
-const Home = lazy(() => import("./Screens/Home"));
+const Home = lazy(() => import("./Screens/Customer/Home"));
+const SellerDashboard = lazy(() => import("./Screens/Seller/SellerDashboard"));
+const AdminDashboard = lazy(() => import("./Screens/Admin/Dashboard"));
 
 function App() {
   return (
@@ -32,14 +34,35 @@ function App() {
               exact
               element={<BeforeLoginRoute file={<Signup />} />}
             />
-            <Route path="/" exact element={<Home />} />
-            <Route path="/seller" element={<SellerDashboard/>}/>
-            {/* <Route path="/courses" exact element={<Courses />} /> */}
-            {/* <Route
-              path="/courses"
+            {/* Customer Routes */}
+            <Route
+              path="/"
               exact
-              element={<ProtectedRoute file={<Courses />} />}
-            /> */}
+              element={<BeforeLoginRoute element={<Home />} />}
+            />
+
+            {/* Seller Routes */}
+            <Route
+              path="/seller-dashboard"
+              exact
+              element={
+                <ProtectedRoute
+                  file={<SellerDashboard />}
+                  path="/seller-dashboard"
+                />
+              }
+            />
+            {/* Admin Routes */}
+            <Route
+              path="/admin-dashboard"
+              exact
+              element={
+                <ProtectedRoute
+                  file={<AdminDashboard />}
+                  path="/admin-dashboard"
+                />
+              }
+            />
           </Routes>
         </Router>
       </Suspense>

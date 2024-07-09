@@ -1,12 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom/dist";
-import { toast } from "react-toastify";
 
 const BeforeLoginRoute = ({ file }) => {
   const isLogin = useSelector((state) => state?.authReducer?.isLogin);
+  const { role } = useSelector((state) => state?.authReducer?.user);
+  const handleRoute = () => {
+    if (role === "admin") {
+      return "/admin-dashboard";
+    } else if (role === "seller") {
+      return "/seller-dashboard";
+    } else {
+      return "/";
+    }
+  };
   if (isLogin) {
-    return <Navigate to="/" replace />;
+    return <Navigate to={handleRoute()} replace />;
   } else {
     return file;
   }
