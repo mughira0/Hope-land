@@ -60,7 +60,7 @@
 .card_top {
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
-  background-image: url("../../Assets/Images/property1.jpg");
+  background-image: url("../../../Assets/Images/property1.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

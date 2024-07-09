@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import property5 from "../../../../Assets/Images/property5.jpg";
 import Button from "../../../../Components/Button/Button";
-import DropDown from "../../../Components/DropDown";
+import DropDown from "../../../../Components/DropDown";
+import { property5 } from "../../../../Constant/ImagePath";
 import classes from "./BannerSection.module.css";
 
 function BannerSection() {
