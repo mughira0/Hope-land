@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 const ProtectedRoute = ({ file, path }) => {
   const isLogin = useSelector((state) => state?.authReducer?.isLogin);
   const Routes = {
-    admin: ["/admin-dashboard"],
+    admin: ["/admin-dashboard", "/add-edit-package", "/packages"],
     seller: ["/seller-dashboard"],
   };
   const { role } = useSelector((state) => state?.authReducer?.user);

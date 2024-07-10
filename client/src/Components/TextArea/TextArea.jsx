@@ -1,8 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
 import classes from "./TextArea.module.css";
-import { AiFillEye } from "react-icons/ai";
-import { AiFillEyeInvisible } from "react-icons/ai";
-import { useState } from "react";
 const TextArea = ({
   setter,
   value,

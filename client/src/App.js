@@ -14,7 +14,8 @@ const Signup = lazy(() => import("./Screens/Signup"));
 const Home = lazy(() => import("./Screens/Customer/Home"));
 const SellerDashboard = lazy(() => import("./Screens/Seller/SellerDashboard"));
 const AdminDashboard = lazy(() => import("./Screens/Admin/Dashboard"));
-
+const Packages = lazy(() => import("./Screens/Admin/Packages"));
+const AddEditPackages = lazy(() => import("./Screens/Admin/AddEditPackage"));
 function App() {
   return (
     <>
@@ -61,6 +62,24 @@ function App() {
                   file={<AdminDashboard />}
                   path="/admin-dashboard"
                 />
+              }
+            />
+
+            <Route
+              path="/packages"
+              exact
+              element={<ProtectedRoute file={<Packages />} path="/packages" />}
+            />
+            <Route
+              path="/add-edit-package"
+              exact
+              element={
+                // <ProtectedRoute
+                // file={
+                <AddEditPackages />
+                // }
+                // path="/add-edit-package"
+                // />
               }
             />
           </Routes>

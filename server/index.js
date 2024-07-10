@@ -9,7 +9,9 @@ app.use(cors());
 const port = process.env.PORT || 8000;
 
 import authRoutes from "./routes/authRoutes.js";
+import packageRoutes from "./routes/packageRoutes.js";
 app.use("/api/auth", authRoutes);
+app.use("/api/admin", packageRoutes);
 app.listen(port, () => {
   console.log(`server is  running on ${port}`);
   handleMongoDbConnection();

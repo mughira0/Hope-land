@@ -1,18 +1,20 @@
-.dash{
-    width:100%;
-    height:100%;
-    
+.pageMain h1 {
+  font-size: 29px;
+  margin-bottom: 20px;
+  font-family: var(--ff-primary-bold);
 }
-.rightpart{
-    height:100vh;
-    width:82%;
-    display: flex;
-    flex-direction: column;
+.box {
+  padding-bottom: 18px;
 }
-.banner{
-    object-fit: cover;
-    height:50vh;
-    width:68%;
-    margin-top:2%;
-
+.buttonMain {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+.permissionBox {
+  padding-block: 5px;
+}
+.box h4 {
+  font-family: var(--ff-primary-semiBold);
+  font-size: 20px;
 }

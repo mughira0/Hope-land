@@ -1,10 +1,11 @@
 import React from "react";
-
+import classes from "./checkbox.module.css";
 function Checkbox({ setter, value, label }) {
   const handleChange = () => {
     if (Array?.isArray(value)) {
       if (value?.includes(label)) {
         setter((prev) => prev?.filter((ele) => ele !== label));
+
         handleValue();
         return;
       } else {
@@ -13,7 +14,7 @@ function Checkbox({ setter, value, label }) {
         return;
       }
     }
-    setter(label);
+    setter((prev) => (prev ? "" : label));
     handleValue();
   };
   const handleValue = () => {
@@ -24,13 +25,14 @@ function Checkbox({ setter, value, label }) {
   };
 
   return (
-    <div>
+    <div className={classes.checkbox}>
       <input
         type="checkbox"
         label={label}
         value={handleValue}
         onChange={() => handleChange()}
       />
+      <label>{label}</label>
     </div>
   );
 }
