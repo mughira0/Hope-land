@@ -1,10 +1,10 @@
 import React from 'react'
 import classes from './index.module.css'
 import Button from '../../../../Components/Button/Button'
-import { GiHamburgerMenu } from "react-icons/gi";
+import { RxHamburgerMenu } from "react-icons/rx";
 
 function index() {
-    const burger = <GiHamburgerMenu/>   
+    
     const cust_style={
         backgroundColor:'transparent',
         color:'black',
@@ -23,7 +23,7 @@ function index() {
             <h3>Hope Land</h3>
         </div>
 
-        <Button label={<GiHamburgerMenu/>} customStyle={cust_style} />
+        <Button label={<RxHamburgerMenu/>} customStyle={cust_style} />
     </div>
 
   )

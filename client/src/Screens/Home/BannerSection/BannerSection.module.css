@@ -113,7 +113,7 @@
     align-items: center;
     text-align: center;
     width: 80%;
-    animation: none; /* Disable animation for small screens */
+    
   }
 }
 
@@ -128,9 +128,29 @@
     align-items: center;
     text-align: center;
     width: 80%;
-    animation: none; /* Disable animation for small screens */
+    
   }
   .subbuttons {
     width: 70%;
+  }
+}
+
+@media (max-width: 400px) {
+  .filter {
+    display: none;
+  }
+  .text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 80%;
+    
+  }
+  .subbuttons {
+   
+    width: 90%;
+    height:20%;
   }
 }
