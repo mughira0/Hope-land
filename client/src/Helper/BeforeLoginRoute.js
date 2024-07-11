@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom/dist";
 
 const BeforeLoginRoute = ({ file }) => {
   const isLogin = useSelector((state) => state?.authReducer?.isLogin);
-  const { role } = useSelector((state) => state?.authReducer?.user);
+  const { role } = useSelector((state) => state?.authReducer?.user || {});
   const handleRoute = () => {
     if (role === "admin") {
       return "/admin-dashboard";

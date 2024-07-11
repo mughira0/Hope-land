@@ -9,7 +9,7 @@ const ProtectedRoute = ({ file, path }) => {
     admin: ["/admin-dashboard", "/add-edit-package", "/packages"],
     seller: ["/seller-dashboard"],
   };
-  const { role } = useSelector((state) => state?.authReducer?.user);
+  const { role } = useSelector((state) => state?.authReducer?.user || {});
   if (isLogin && Routes[role].includes(path)) {
     return file;
   } else if (isLogin && !Routes[role].includes(path)) {
