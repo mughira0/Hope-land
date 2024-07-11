@@ -1,8 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import classes from "./Input.module.css";
-import { AiFillEye } from "react-icons/ai";
-import { AiFillEyeInvisible } from "react-icons/ai";
-import { useState } from "react";
 const Input = ({
   setter,
   value,
@@ -42,6 +40,8 @@ const Input = ({
                 : "text"
               : type == "number"
               ? "number"
+              : type == "date"
+              ? "date"
               : "text"
           }
           placeholder={placeholder && placeholder}

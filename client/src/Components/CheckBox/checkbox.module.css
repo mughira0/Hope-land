@@ -1,0 +1,12 @@
+.checkbox label {
+  font-family: "poppin-regular";
+  margin-bottom: 0px;
+  color: black;
+  font-size: 12px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}

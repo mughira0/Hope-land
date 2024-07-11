@@ -7,7 +7,7 @@ import { handleGenerateToken } from "../utils/utils.js";
 export const handleSignUp = async (req, res) => {
   // spem
   try {
-    const { email, fullName, password, birthDate, gender } = req.body;
+    const { email, fullName, password, birthDate, gender, role } = req.body;
     const body = req.body;
     for (const key in body) {
       if (!body[key]) {
@@ -39,7 +39,7 @@ export const handleSignUp = async (req, res) => {
     const newUser = await userModel.create({
       email,
       fullName,
-
+      role,
       password: hashPassword,
       birthDate,
       gender,
@@ -57,6 +57,7 @@ export const handleSignUp = async (req, res) => {
         profilePic: newUser?.profilePic,
         createdAt: newUser?.createdAt,
         updatedAt: newUser?.updatedAt,
+        role: newUser?.role,
       },
     });
   } catch (err) {
@@ -84,11 +85,10 @@ export const handleLoginUp = async (req, res) => {
       });
     }
     const samePassword = await bcrypt.compare(password, user?.password);
-    console.log(samePassword);
     if (!samePassword) {
       return res.status(400).send({
         status: false,
-        message: "Invalid Credentialsssss",
+        message: "Invalid Credentials",
       });
     }
     const token = handleGenerateToken(user._id);

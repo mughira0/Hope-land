@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from "react";
-import classes from "./Footer.module.css";
-import { logo } from "../../Constant/ImagePath";
+import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { MdEmail, MdLocalPhone, MdLocationOn } from "react-icons/md";
-import { footerCity } from "../../Constant/ImagePath";
-import { Link, useNavigate } from "react-router-dom";
+import { BsTwitter } from "react-icons/bs";
 import { FaFacebookF } from "react-icons/fa";
 import { FiInstagram } from "react-icons/fi";
-import { BsTwitter } from "react-icons/bs";
+import { MdEmail, MdLocalPhone, MdLocationOn } from "react-icons/md";
+import { Link, useNavigate } from "react-router-dom";
+import classes from "./Footer.module.css";
 
 const Footer = () => {
   const navigate = useNavigate();

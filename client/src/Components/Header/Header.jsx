@@ -1,21 +1,15 @@
-import React, { useState } from "react";
-import { Container, Row, Col, NavDropdown } from "react-bootstrap";
-import styles from "./Header.module.css";
 import EmailIcon from "@mui/icons-material/Email";
-import PhoneIcon from "@mui/icons-material/Phone";
-import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
-import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
 import LogoutIcon from "@mui/icons-material/Logout";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
 import PersonIcon from "@mui/icons-material/Person";
-import LoginModal from "../LoginModal";
-import SignupModal from "../SignupModal";
+import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import PhoneIcon from "@mui/icons-material/Phone";
+import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
+import React, { useState } from "react";
+import { Col, Container, NavDropdown, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { isSignout } from "../../redux/authSlice";
-import { BaseUrl } from "../../Config/apiUrl";
-import { Get } from "../../AxiosFunction/AxiosFunction";
-import { toast } from "react-toastify";
+import styles from "./Header.module.css";
 export const Header = () => {
   const [show, setShow] = useState(false);
   const [open, setOpen] = useState(false);
@@ -91,7 +85,7 @@ export const Header = () => {
                         <PersonIcon /> My Profile
                       </NavDropdown.Item>
                     </NavDropdown>
-                    <button onClick={handleLogout}>
+                    <button onClick={() => {}}>
                       <LogoutIcon className="icon2" /> Logout
                     </button>
                   </div>
@@ -101,8 +95,6 @@ export const Header = () => {
           </Row>
         </Container>
       </div>
-      <LoginModal show={show} setShow={setShow} setOpen={setOpen} />
-      <SignupModal show={open} setShow={setOpen} setOpen={setShow} />
     </div>
   );
 };

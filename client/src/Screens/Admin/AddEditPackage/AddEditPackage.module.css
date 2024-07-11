@@ -1,0 +1,20 @@
+.pageMain h1 {
+  font-size: 29px;
+  margin-bottom: 20px;
+  font-family: var(--ff-primary-bold);
+}
+.box {
+  padding-bottom: 18px;
+}
+.buttonMain {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+.permissionBox {
+  padding-block: 5px;
+}
+.box h4 {
+  font-family: var(--ff-primary-semiBold);
+  font-size: 20px;
+}
