@@ -30,7 +30,14 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-
+    package: {
+      ref: "Package",
+      type: mongoose.Schema.Types.ObjectId,
+    },
+    isSubscribed: {
+      type: Boolean,
+      default: false,
+    },
     role: {
       type: String,
       enum: ["seller", "customer", "admin"],
