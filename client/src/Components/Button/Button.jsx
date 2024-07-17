@@ -1,5 +1,6 @@
 import React from "react";
 import classes from "./Button.module.css";
+import { FaPlus } from "react-icons/fa6";
 
 const Button = ({
   label,
@@ -8,8 +9,11 @@ const Button = ({
   disabled,
   customStyle,
   btnType = "cutHover",
+  leftIcon
 }) => {
+  const Icon = leftIcon;
   return (
+    
     <>
       <button
         style={customStyle}
@@ -20,6 +24,7 @@ const Button = ({
           className && className,
         ].join(" ")}
       >
+        {Icon && <Icon size={25} color="green" />}
         {label}
       </button>
     </>

@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import classes from "./Input.module.css";
+
 const Input = ({
   setter,
   value,
@@ -9,44 +10,69 @@ const Input = ({
   placeholder,
   leftIcon,
   className,
+  prop_type,
+  multiple,
   disabled = false,
 }) => {
-  const [open, setOpen] = useState("close");
+
+
+  const [open, setOpen] = useState(false);
   return (
     <div className={[classes.inputContainer, className].join(" ")}>
-      <label>{label && label}</label>
+      {type !== "radio" && label && <label>{label}</label>}
       <div className={classes.inputMainWithIcon}>
-        {type == "password" &&
-          (open == "close" ? (
-            <AiFillEyeInvisible
-              onClick={() => setOpen("open")}
-              className={classes.eyeicon}
-            />
+        {type === "password" && (
+          open ? (
+            <AiFillEye onClick={() => setOpen(false)} className={classes.eyeicon} />
           ) : (
-            <AiFillEye
-              onClick={() => setOpen("close")}
-              className={classes.eyeicon}
+            <AiFillEyeInvisible onClick={() => setOpen(true)} className={classes.eyeicon} />
+          )
+        )}
+        {type === "radio" ? (
+          <div className={classes.radio_div} style={prop_type === label ? {backgroundColor: 'lightblue',width:"10vw",height:"6vh",color:'blue'} : {backgroundColor:'white',width:"10vw",height:"6vh"}}>
+            <input
+              type="radio"
+              id={label}
+              disabled={disabled}
+              onChange={(e)=>setter(label)}
+              checked={prop_type=== label}
+              value={value}
             />
-          ))}
-        <input
-          disabled={disabled}
-          onChange={(e) => setter(e.target.value)}
-          value={value}
-          style={leftIcon ? { paddingLeft: "35px" } : { paddingLeft: "10px" }}
-          type={
-            type === "password"
-              ? open == "close"
-                ? "password"
-                : "text"
-              : type == "number"
-              ? "number"
-              : type == "date"
-              ? "date"
-              : "text"
-          }
-          placeholder={placeholder && placeholder}
-        />
-        {/* {leftIcon && <img src={leftIcon} />} */}
+            <label htmlFor={label} className={classes.radio_label}>{label}</label>
+          </div>
+        ): type === "file" ? (
+          
+          <input
+            disabled={disabled}
+            onChange={(e)=>setter(e)}
+            multiple={multiple}
+            style={{ paddingLeft: leftIcon ? "35px" : "10px" }}
+            
+            type={type}
+          />
+        ):
+        type === "textarea" ?
+
+        (
+          <textarea
+            className={classes.textsize}
+            disabled={disabled}
+            onChange={(e)=>setter(e.target.value)}
+            value={value}
+            style={{ paddingLeft: leftIcon ? "35px" : "10px" }}
+            type={"text"}
+            />
+        ) :
+        (
+          <input
+            disabled={disabled}
+            onChange={(e) => setter(e.target.value)}
+            value={value}
+            style={{ paddingLeft: leftIcon ? "35px" : "10px" }}
+            type={type === "password" ? (open ? "text" : "password") : type}
+            placeholder={placeholder}
+          />
+        )}
         <div className={classes.leftIconMain}>{leftIcon}</div>
       </div>
     </div>

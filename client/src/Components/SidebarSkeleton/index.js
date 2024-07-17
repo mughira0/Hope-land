@@ -51,7 +51,7 @@ const SidebarSkeleton = ({ children, heading }) => {
               <h5>Hope Land</h5>
             </div>
           </div>
-          {routes[user?.role]?.map((ele) => (
+          {routes["seller"]?.map((ele) => ( //user?.role
             <RenderComponent path={ele.path} text={ele.text} icon={ele?.icon} />
           ))}
         </div>

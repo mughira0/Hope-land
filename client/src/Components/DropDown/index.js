@@ -34,7 +34,7 @@ const DropDown = ({
       </style>
 
       <div className={classes.dropDownMain}>
-        <label>{label}</label>
+        {label && <label>{label}</label> }
         <Select
           isMulti={isMulti}
           onChange={setter}

@@ -7,7 +7,7 @@ const ProtectedRoute = ({ file, path }) => {
   const isLogin = useSelector((state) => state?.authReducer?.isLogin);
   const Routes = {
     admin: ["/admin-dashboard", "/add-edit-package", "/packages"],
-    seller: ["/seller-dashboard"],
+    seller: ["/seller-dashboard",],
   };
   const { role } = useSelector((state) => state?.authReducer?.user || {});
   if (isLogin && Routes[role].includes(path)) {

@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { Post } from "../../AxiosFunction/AxiosFunction";
 import { BaseUrl } from "../../Config/apiUrl";
 import Role from "./Role";
+
 import SignUpForm from "./SignUpForm";
 import classes from "./Signup.module.css";
 const Signup = () => {
@@ -11,6 +12,7 @@ const Signup = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [role, setRole] = useState("");
   const [stepper, setStepper] = useState("Role");
+  
   const handleSignup = async (params) => {
     const apiUrl = BaseUrl("auth/signup");
     const body = {

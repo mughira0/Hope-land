@@ -8,7 +8,7 @@
   position: relative;
   font-family: var(--ff-primary-bold);
   display: flex; /* Use flexbox to handle icon alignment */
-  justify-content: center; /* Center content horizontally */
+  justify-content: space-around; /* Center content horizontally */
   align-items: center; /* Center content vertically */
   overflow: hidden;
   border: none;

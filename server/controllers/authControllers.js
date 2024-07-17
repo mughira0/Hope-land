@@ -5,6 +5,8 @@ import { handleGenerateToken } from "../utils/utils.js";
  * ? Signup Controller
  **/
 export const handleSignUp = async (req, res) => {
+
+  console.log("SignUp")
   // spem
   try {
     const { email, fullName, password, birthDate, gender, role } = req.body;
@@ -45,6 +47,8 @@ export const handleSignUp = async (req, res) => {
       gender,
       profilePic,
     });
+
+    console.log(newUser)
     res.status(201).send({
       status: true,
       message: `User created Successfully`,
@@ -72,6 +76,7 @@ export const handleSignUp = async (req, res) => {
  * ? Login Controller
  **/
 export const handleLoginUp = async (req, res) => {
+  console.log("Login")
   try {
     const { email, password } = req.body;
     console.log(req.body);
