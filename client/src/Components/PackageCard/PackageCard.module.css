@@ -1,0 +1,97 @@
+.cardMain {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+.heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.button {
+  width: 100%;
+}
+
+.getStartedBtn {
+  padding-block: 8px;
+  font-size: 14px;
+  width: 100%;
+}
+.cardMain h1 {
+  align-self: start;
+  font-size: 20px;
+  margin-bottom: 10px;
+  width: 100%;
+  color: var(--heading-color);
+  text-transform: capitalize;
+  font-weight: 500;
+  font-family: var(--ff-primary-bold);
+}
+.cardMain span {
+  font-size: 14px;
+  color: var(--heading-color);
+  text-transform: capitalize;
+  margin-left: auto;
+  font-weight: 500;
+  font-family: var(--ff-primary-semiBold);
+  margin-bottom: 10px;
+}
+.price {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+.price h3 {
+  text-transform: capitalize;
+  font-size: 14px;
+  color: var(--heading-color);
+  font-weight: 500;
+  font-family: var(--ff-primary-regular);
+}
+.cardMain h2 {
+  align-self: start;
+  font-size: 18px;
+  text-transform: capitalize;
+  margin-bottom: 10px;
+  color: var(--heading-color);
+  font-weight: 500;
+  font-family: var(--ff-primary-semiBold);
+}
+.cardMain p {
+  align-self: start;
+  font-size: 14px;
+  text-transform: capitalize;
+  margin-bottom: 10px;
+  color: var(--heading-color);
+  font-weight: 500;
+  font-family: var(--ff-primary-regular);
+}
+.permission {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 10px;
+  height: 140px;
+  overflow-y: auto;
+}
+.permission h2 {
+  font-size: 16px;
+  color: var(--heading-color);
+  font-weight: 500;
+  text-transform: capitalize;
+  margin-bottom: 5px;
+  font-family: var(--ff-primary-bold);
+}
+.permissionBox p {
+  text-transform: capitalize;
+  font-size: 14px;
+  margin-bottom: 0px;
+  color: var(--heading-color);
+  font-weight: 500;
+  font-family: var(--ff-primary-semiBold);
+}

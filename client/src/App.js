@@ -13,6 +13,7 @@ const Login = lazy(() => import("./Screens/Login"));
 const Signup = lazy(() => import("./Screens/Signup"));
 const Home = lazy(() => import("./Screens/Customer/Home"));
 const SellerDashboard = lazy(() => import("./Screens/Seller/SellerDashboard"));
+const Subscription = lazy(() => import("./Screens/Seller/Subscription"));
 const AdminDashboard = lazy(() => import("./Screens/Admin/Dashboard"));
 const Packages = lazy(() => import("./Screens/Admin/Packages"));
 const AddEditPackages = lazy(() => import("./Screens/Admin/AddEditPackage"));
@@ -53,6 +54,14 @@ function App() {
                 />
               }
             />
+            <Route
+              path="/subscription"
+              exact
+              element={
+                <ProtectedRoute file={<Subscription />} path="/subscription" />
+              }
+            />
+
             {/* Admin Routes */}
             <Route
               path="/admin-dashboard"

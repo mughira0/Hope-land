@@ -1,7 +1,7 @@
 import packageModel from "../models/packageModel.js";
 export const handleAddPackage = async (req, res) => {
   try {
-    const { title, description, recurringType, price, permissions, type } =
+    const { title, description, recurringType, price, permission, type } =
       req.body;
     const body = req.body;
     console.log(body);
@@ -30,7 +30,7 @@ export const handleAddPackage = async (req, res) => {
       description,
       recurringType,
       price,
-      permissions,
+      permission,
       type,
     });
     res.status(201).send({
