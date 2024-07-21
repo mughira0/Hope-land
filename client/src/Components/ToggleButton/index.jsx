@@ -2,11 +2,15 @@ import React from 'react';
 import classes from './index.module.css';
 
 function Index({
+    value,
     setInstallment
 }) {
 
     const setToggleState = () => {
-        setInstallment(prevState => !prevState);
+        if ( value === true){ setInstallment(false)}
+        else{
+            setInstallment(true)
+        }
     };
 
 

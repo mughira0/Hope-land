@@ -81,7 +81,7 @@ export const handleLoginUp = async (req, res) => {
     const { email, password } = req.body;
     console.log(req.body);
     const user = await userModel.findOne({ email });
-    console.log(user);
+    console.log("data :",user);
 
     if (!user) {
       return res.status(400).send({

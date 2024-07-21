@@ -92,7 +92,7 @@ function SignUpForm({ onClick, apiCall }) {
           </Col>
           <Col md={12}>
             <DropDown
-              setter={setGender}
+              setter={(value)=>setGender(value)}
               value={gender}
               option={[
                 { label: "Male", value: "male" },

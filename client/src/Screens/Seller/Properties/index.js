@@ -22,16 +22,21 @@ import Button from '../../../Components/Button/Button'
 import { FaPlus } from "react-icons/fa6";
 import { LuBedSingle,  LuBath } from "react-icons/lu";
 import { AiOutlineHome } from "react-icons/ai";
+import { toast } from "react-toastify";
+import { BaseUrl} from "../../../Config/apiUrl";
+import { validateForm } from './validation';
+import { Post } from '../../../AxiosFunction/AxiosFunction';
+import { useSelector } from 'react-redux';
 
 function Properties() {
 
   const [form, setForm] = useState({
     pr_purpose: "Sell",
     pr_type: {category:'Home',type:[]},
-    pr_area: {length:0,measure:'Marla',location:'',city:''},
-    pr_pay:0,
+    pr_area: {length:0,measure:'',location:'',city:''},
+    pr_pay: {price : 0 , currency: ''},
     pr_installment: false,
-    pr_installment_plan:{number_of_installments:0,advance_amount:0,monthly_installments:0},
+    pr_installment_plan:{number_of_installments:0,currency:'',advance_amount:0,monthly_installments:0},
     pr_possession: false,
     images: [],
     pr_description: {title:'',description:''},
@@ -40,9 +45,11 @@ function Properties() {
     additional_information : ''
   });
 
+  const [errors,setErrors] = useState({})
+
 
   const image_descrip = [ { text: 'Ads with pictures get 5x more views.' },  { text: 'Upload good quality pictures with proper lighting.' },{ text: 'Double click to set cover image.' } ]
-  const cities = [ { value: "karachi", label: "Karachi" }, { value: "lahore", label: "Lahore" }, { value: "faisalabad", label: "Faisalabad" }, { value: "rawalpindi", label: "Rawalpindi" },{ value: "multan", label: "Multan" }];
+  const cities = [ { value: "Karachi", label: "Karachi" }, { value: "Lahore", label: "Lahore" }, { value: "Faisalabad", label: "Faisalabad" }, { value: "Rawalpindi", label: "Rawalpindi" },{ value: "Multan", label: "Multan" }];
   const payment = [ { value: "USD", label: "USD" }, { value: "PKR", label: "PKR" } ]
   const d = [ { value: "Marla", label: "Marla" }, { value: "Sq. Ft.", label: "Sq. Ft." }, { value: "Sq. M.", label: "Sq. M." }, { value: "Sq. Yd.", label: "Sq. Yd." }, { value: "Kanal", label: "Kanal" }]
   const pr_type = [ {
@@ -59,15 +66,18 @@ function Properties() {
     }
   ]
 
-  const selected_category = pr_type.find((ele) => ele.parent === form.pr_type['category']);
-  const setPurpose = (purpose) => setForm(prevForm => ({ ...prevForm, pr_purpose: purpose }));
-  const setType = (type) => setForm(prevForm => ({ ...prevForm, pr_type: { ...prevForm.pr_type, type:type } }));
-  const setArea = (key, value) => setForm(prevForm => ({ ...prevForm, pr_area: { ...prevForm.pr_area, [key]: value } }));
+  const {token} = useSelector((state)=> state?.authReducer)
+
+  const selected_category = pr_type.find((ele) => ele.parent === form.pr_type.category);
+  const setPurpose = (purpose) => setForm(prev => ({ ...prev, pr_purpose: purpose }));
+  const setType = (key,value) => setForm(prev => ({ ...prev, pr_type: { ...prev.pr_type, [key]:value } }));
+  const setArea = (key, value) => setForm(prev => ({ ...prev, pr_area: { ...prev.pr_area, [key]: value } }));
   const handleUserInfo = (key,value) => setForm(prev=>({...prev, user_info:{...prev.user_info,[key]:value}}))
   const handleItems = (key,value)=> setForm(prev => ({...prev,pr_items:{...prev.pr_items,[key]:value}}))
   const handleNumbers = () => { return form.user_info['number_of_phonenumber'].length > 1 ? true : false }
   const handleInstallments = (key,value)=> setForm(prev => ({ ...prev, pr_installment_plan:{ ...prev.pr_installment_plan, [key]:value}}))
   const handleDescription = (key,value) => setForm(prev=> ({...prev, pr_description:{...prev.pr_description,[key]:value}}))
+  const handlePayment = (key,value) => setForm(prev => ({...prev,pr_pay:{...prev.pr_pay, [key] : value}}))
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
@@ -75,7 +85,7 @@ function Properties() {
     setForm((prev)=>({
       ...prev,
       images:[
-        ...prev,
+        ...prev.images,
         ...files
       ]
 
@@ -85,6 +95,7 @@ function Properties() {
 
   useEffect(() => {
     const selected_category = pr_type.find((ele) => ele.parent === form.pr_type['category']);
+    console.log("value",selected_category)
     if (selected_category) {
       setForm((prev) => ({
         ...prev,
@@ -94,17 +105,32 @@ function Properties() {
         }
       }));
     }
-    console.log(form.pr_type)
+    console.log("after changes",form.pr_type)
   }, [form.pr_type['category']]);
 
 
-  const handleForm = ()=>{
-  }
+  const handleForm = async () => {
+    const validationErrors = validateForm(form);
+    setErrors(validationErrors);
+    if (Object.keys(validationErrors).length === 0) {
+      toast.success("No error");
+      const response = await Post(BaseUrl("seller/list-properties"), form, token);
+      if (response?.status === 200) {
+        toast.success("Listed Successfully");
+      } else {
+        toast.error("Failed to list property");
+      }
+    } else {
+      console.log(errors)
+      toast.error("Fill all fields");
+    }
+  };
 
+  
 
 
   useEffect(() => {
-    console.log(form.images);
+    console.log("Images: ",form.images);
   }, [form.images]);
 
   return (
@@ -151,12 +177,12 @@ function Properties() {
               <h6>Select Property Type</h6>
               <div className={classes.btn_cmp}>
                 {pr_type.map((ele, index) => (
-                  <div className={classes.property_btn} onClick={() => setForm((prev)=> ({ ...prev,pr_type:{...prev.pr_type,category:ele.parent}}))} style={ele.parent === form.pr_type['category'] ? { color: 'blue', borderBottomWidth: '2px', borderBottomStyle: 'solid', borderBottomColor: 'blue' } : {}}>{ele.parent}</div>
+                  <div className={classes.property_btn} key={index} onClick={()=>setType('category',ele.parent)} style={ele.parent === form.pr_type['category'] ? { color: 'blue', borderBottomWidth: '2px', borderBottomStyle: 'solid', borderBottomColor: 'blue' } : {}}>{ele.parent}</div>
                 ))}
               </div>
               <div className={classes.choices}>
-                {selected_category?.children.map((ele, index) => (
-                  <Input type={'radio'} label={ele} setter={setType} prop_type={form.pr_type['type']} value={'pr_type'}/>
+                {selected_category.children?.map((ele, index) => (
+                  <Input key={index} type={'radio'} label={ele} setter={(value)=>setType('type',value)} prop_type={form.pr_type.type} value={ele}/>
                 ))}
               </div>
             </div>
@@ -164,18 +190,20 @@ function Properties() {
 
           {/* Choosing City  */}
 
-          <div className={classes.r1} style={{ height: '15%' }}>
+          <div className={classes.r1} style={{ height: '120px'}}>
             <div className={classes.icon} style={{ height: '30%' }}><IoLocationOutline size={15} style={{ backgroundColor: 'transparent' }} /></div>
-            <div className={classes.text}>
+            <div className={classes.text} >
               <h6>City</h6>
-              <DropDown placeholder={'Select City'} option={cities} />
+              <DropDown placeholder={'Select City'} option={cities} setter={(value)=>setArea('city',value)} />
+              <div style={{height:'40%'}}>{errors?.pr_area_city && <p style={{color:'red',marginTop:'1px'}}>City category is empty</p>}</div>
             </div>
           </div>
-          <div className={classes.r1} style={{ height: '15%' }}>
+          <div className={classes.r1} style={{ height: '120px'}}>
             <div className={classes.icon} style={{ height: '30%' }}><FaMap size={15} style={{ backgroundColor: 'transparent' }} /></div>
             <div className={classes.text}>
               <h6>Location</h6>
               <Input placeholder={'Enter Location'} setter={(value)=>setArea('location',value)} value={form.pr_area.location}/>
+              <div style={{height:'40%'}}>{errors?.pr_area_location && <p style={{color:'red',marginTop:'1px'}}>Location cannot be empty</p>}</div>
             </div>
           </div>
 
@@ -199,8 +227,13 @@ function Properties() {
             <div className={classes.text} style={{ display: 'flex' }}>
               <h6>Area</h6>
               <div className={classes.area_tags}>
-                <div style={{ width: '70%' }}><Input type={'number'} setter={(value)=>setArea('length',value)} placeholder={"Enter Area.."} prop_type={form.pr_area['length']} /></div>
-                <div style={{ width: '25%' }}><DropDown setter={setForm} prop_type={form.pr_area['measure']} option={d} /></div>
+                <div style={{ width: '70%' }}><Input type={'number'} setter={(value)=>setArea('length',value)} placeholder={"Enter Area.."} prop_type={form.pr_area['length']} />
+                <div style={{height:'40px'}}>{errors?.pr_area_length && <p style={{color:'red',marginTop:'1px'}}>Area is invalid</p>}</div>
+                {/* {errors?.pr_area_length && <p style={{color:'red',marginTop:'15px'}} > Area cannot be empty </p>} */}
+                </div>
+                <div style={{ width: '25%', }}><DropDown setter={(value)=>setArea('measure',value)} prop_type={form.pr_area['measure']} option={d}  />
+                <div style={{height:'40px'}}>{errors?.pr_area_measure && <p style={{color:'red',marginTop:'1px'}}>Choose Measure</p>}</div>
+                </div>
               </div>
             </div>
           </div>
@@ -214,8 +247,14 @@ function Properties() {
             <div className={classes.text} style={{ display: 'flex' }}>
               <h6>Price</h6>
               <div className={classes.area_tags}>
-                <div style={{ width: '70%' }}><Input type={'number'} setter={setForm((prev)=>({...prev,...prev.pr_pay}))}aceholder={"Enter Price.."} prop_type={form.pr_pay} /></div>
-                <div style={{ width: '25%' }}><DropDown setter={setForm} option={payment} /></div>
+                <div style={{ width: '70%' }}><Input type={'number'} setter={(value)=>handlePayment('price',value)}  placeholder={"Enter Price.."} prop_type={form.pr_pay} />
+                {/* {errors?.pr_pay_price && <p style={{color:'red',marginTop:'15px'}} > Price cannot be empty </p>} */}
+                <div style={{height:'40px'}}>{errors?.pr_pay_price && <p style={{color:'red',marginTop:'1px'}}>Price is invalid</p>}</div>
+                </div>
+                <div style={{ width: '25%', }}><DropDown setter={(value)=> handlePayment('currency',value)} option={payment} />
+                <div style={{height:'40px'}}>{errors?.pr_pay_currency && <p style={{color:'red',marginTop:'1px'}}>Choose Currency</p>}</div>
+                {/* {errors?.pr_pay_currency && <p style={{color:'red',marginTop:'15px'}} > Choose Currency </p>} */}
+                </div>
               </div>
             </div>
           </div>
@@ -231,21 +270,25 @@ function Properties() {
                   <h6>Installment</h6>
                   <p>Enable if listing is available on installments</p>
                 </div>
-                <ToggleButton setInstallment={setForm((prev)=>({...prev,...prev.pr_installment}))} />
+                <ToggleButton setInstallment={(value)=>setForm((prev)=>({...prev,pr_installment:value}))} value={form.pr_installment} />
 
               </div>
             </div>
           </div>
 
-          {form.pr_installment && <div className={classes.installment_setting}>
+          {form.pr_installment === true && <div className={classes.installment_setting}>
 
             <div className={classes.r1} style={{ height: '90px', width: '100%' }}>
               <div className={classes.icon} style={{ height: '30%' }}><TbResize size={15} style={{ backgroundColor: 'transparent' }} /></div>
               <div className={classes.text} style={{ display: 'flex' }}>
                 <h6>Advance Amount</h6>
                 <div className={classes.area_tags}>
-                  <div style={{ width: '70%' }}><Input type={'number'} setter={(value)=>handleInstallments('advance_amount',value)} placeholder={"Enter Amount.."} prop_type={form.pr_installment_plan['advance_amount']} /></div>
-                  <div style={{ width: '25%' }}><DropDown setter={setForm} option={payment} /></div>
+                  <div style={{ width: '70%' }}><Input type={'number'} setter={(value)=>handleInstallments('advance_amount',value)} placeholder={"Enter Amount.."} prop_type={form.pr_installment_plan['advance_amount']} />
+                  <div style={{height:'40px'}}>{errors?.pr_installment_plan_advance && <p style={{color:'red',marginTop:'1px'}}>Advance Amount is Invalid</p>}</div>
+                  </div>
+                  <div style={{ width: '25%' }}><DropDown setter={(value)=>handleInstallments('currency',value)} option={payment} />
+                  <div style={{height:'40px'}}>{errors?.pr_installment_plan_currency && <p style={{color:'red',marginTop:'1px'}}>Choose Currency</p>}</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -254,8 +297,12 @@ function Properties() {
               <div className={classes.text} style={{ display: 'flex' }}>
                 <h6>Monthly Installments</h6>
                 <div className={classes.area_tags}>
-                  <div style={{ width: '70%' }}><Input type={'number'} setter={(value)=>handleInstallments('monthly_installments')} placeholder={"Enter Number.."} prop_type={form.pr_installment_plan['monthly_installments']} /></div>
-                  <div style={{ width: '25%' }}><DropDown setter={setForm} option={payment} /></div>
+                  <div style={{ width: '70%' }}><Input type={'number'} setter={(value)=>handleInstallments('monthly_installments',value)} placeholder={"Enter Number.."} prop_type={form.pr_installment_plan['monthly_installments']} />
+                  <div style={{height:'40px'}}>{errors?.pr_installment_plan_monthly && <p style={{color:'red',marginTop:'1px'}}>Advance Amount is Invalid</p>}</div>
+                  </div>
+                  <div style={{ width: '25%' }}><DropDown setter={(value)=>handleInstallments('currency',value)} option={payment} />
+                  <div style={{height:'40px'}}>{errors?.pr_installment_plan_currency && <p style={{color:'red',marginTop:'1px'}}>Choose Currency</p>}</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -264,6 +311,8 @@ function Properties() {
               <div className={classes.text} style={{ display: 'flex' }}>
                 <h6>Number of Installments</h6>
                 <Input placeholder={'Enter Number....'} type={'number'} setter={(value)=>handleInstallments('number_of_installments',value)} prop_type={form.pr_installment_plan['number_of_installments']} />
+                <div style={{height:'40px'}}>{errors?.pr_installment_plan_number && <p style={{color:'red',marginTop:'1px'}}>Please enter correct digits.</p>}</div>
+                  
               </div>
             </div>
 
@@ -278,8 +327,7 @@ function Properties() {
                   <h6>Possession</h6>
                   <p>Enable if listing is ready for possession</p>
                 </div>
-                <ToggleButton setInstallment={setForm((prev)=>({...prev,...prev.pr_possession}))}/>
-
+                <ToggleButton setInstallment={(value)=>setForm((prev)=>({...prev,pr_possession:value}))} value={form.pr_possession}/>
               </div>
             </div>
           </div>
@@ -296,6 +344,8 @@ function Properties() {
             <div className={classes.text} style={{ display: 'flex' }}>
               <h6>Title</h6>
               <Input placeholder={"Enter Title ..."} type={'text'} setter={(value)=>handleDescription('title',value)} prop_type={form.pr_description['title']}/>
+              <div style={{height:'40px'}}>{errors?.pr_description_title && <p style={{color:'red',marginTop:'1px'}}>Title Field Cannot be empty</p>}</div>
+              
             </div>
           </div>
 
@@ -304,6 +354,7 @@ function Properties() {
             <div className={classes.text} style={{ display: 'flex' }}>
               <h6>Description</h6>
               <Input placeholder={"Enter Description ..."} type={'textarea'} setter={(value)=>handleDescription('description',value)} prop_type={form.pr_description['description']}/>
+              <div style={{height:'40px'}}>{errors?.pr_description_description && <p style={{color:'red',marginTop:'1px'}}>Description Field Cannot be empty</p>}</div>
             </div>
           </div>
         </div>
@@ -362,6 +413,7 @@ function Properties() {
             <div className={classes.text} style={{ display: 'flex' }}>
               <h6>Email</h6>
               <Input placeholder={"Enter Email"} type={'email'} setter={(value)=>handleUserInfo('email',value)} prop_type={form.user_info['email']} />
+              <div style={{height:'40px'}}>{errors?.user_info_email && <p style={{color:'red',marginTop:'1px'}}>{errors?.user_info_email}</p>}</div>
             </div>
           </div>
 
@@ -370,8 +422,11 @@ function Properties() {
             <div className={classes.text} style={{ display: 'flex' }}>
               <h6>Mobile</h6>
               <div className={classes.area_tags}>
-                <div style={{ width: '13%' }}><DropDown setter={setForm} option={payment} /></div>
-                <div style={{ width: '75%' }}><Input type={'tel'} setter={(value)=>handleUserInfo('phoneNumber',value)} placeholder={"000-000-0000"} prop_type={form.user_info['phoneNumber']} /></div>
+                {/* <div style={{ width: '13%' }}><DropDown setter={setForm} option={payment} /></div> */}
+                <div style={{ width: '75%' }}><Input type={'tel'} setter={(value)=>handleUserInfo('phoneNumber',value)} placeholder={"000-000-0000"} prop_type={form.user_info['phoneNumber']} />
+                <div style={{height:'40px'}}>{errors?.user_info_phoneNumber && <p style={{color:'red',marginTop:'1px'}}>Mobile Number cannot be empty</p>}</div>
+                </div>
+
                 <Button btnType='normal' leftIcon={FaPlus} customStyle={{ padding: '10px 13px', borderRadius: '15px', backgroundColor: 'transparent', border: '1px solid gray' }} onClick={handleUserInfo}></Button>
               </div>
             </div>
@@ -381,8 +436,10 @@ function Properties() {
             <div className={classes.text} style={{ display: 'flex' }}>
               <h6>Landline</h6>
               <div className={classes.area_tags}>
-                <div style={{ width: '13%' }}><DropDown setter={setForm} option={payment} /></div>
-                <div style={{ width: '84%' }}><Input type={'tel'} setter={(value)=>handleUserInfo('landlineNumber',value)} placeholder={"000-000-0000"} prop_type={form.user_info['landlineNumber']} /></div>
+                {/* <div style={{ width: '13%' }}><DropDown setter={setForm} option={payment} /></div> */}
+                <div style={{ width: '84%' }}><Input type={'tel'} setter={(value)=>handleUserInfo('landlineNumber',value)} placeholder={"000-000-0000"} prop_type={form.user_info['landlineNumber']} />
+                <div style={{height:'40px'}}>{errors?.user_info_landlineNumber && <p style={{color:'red',marginTop:'1px'}}>Mobile Number cannot be empty</p>}</div>
+                </div>
               </div>
             </div>
           </div>
@@ -400,8 +457,9 @@ function Properties() {
             <div className={classes.text} style={{ display: 'flex' }}>
               <h6>Bedrooms</h6>
               <div className={classes.area_tags} style={{width:'max-content',gap:'5px'}}>
-                {form.pr_items['bedrooms'] != 'Rooms' && <div style={{ width: '25%' }}><Input type={"radio"} setter={(value)=>handleItems('bedrooms',value)} prop_type={form.pr_items['bedrooms']} label={'Rooms'}/></div>}
-                {form.pr_items['bedrooms'] && <div style={{ width: '70%' }}><Input type={'number'} setter={(value)=>handleItems('number_of_bedrooms',value)} placeholder={"Enter Rooms.."} prop_type={form.pr_items['number_of_bedrooms']} /></div>}
+                <div style={{ width: '25%' }}><Input type={"radio"} setter={(value)=>handleItems('bedrooms',value)} prop_type={form.pr_items['bedrooms']} label={'Rooms'}/></div>
+                 {form.pr_items['bedrooms'] === 'Rooms' && <div style={{ width: '70%' }}><Input type={'number'} setter={(value)=>handleItems('number_of_bedrooms',value)} placeholder={"Enter Rooms.."} prop_type={form.pr_items['number_of_bedrooms']} /></div>}
+                 {form.pr_items['bedrooms'] === 'Rooms' &&  <div style={{height:'40px'}}>{errors?.pr_items_number_of_bedrooms && <p style={{color:'red',marginTop:'1px'}}> cannot be empty</p>}</div>}
                 <div style={{ width: '25%' }}><Input type={'radio'} setter={(value)=>handleItems('bedrooms',value)} prop_type={form.pr_items['bedrooms']} label={'Studio'} /></div>
               </div>
             </div>
@@ -416,7 +474,9 @@ function Properties() {
             <div className={classes.text} style={{ display: 'flex' }}>
               <h6>Bathrooms</h6>
               <div className={classes.area_tags}>
-                <div style={{ width: '70%' }}><Input type={'number'} setter={(value)=>handleItems('washrooms',value)} placeholder={"Enter Price.."} prop_type={form.pr_items['washrooms']} /></div>
+                <div style={{ width: '70%' }}><Input type={'number'} setter={(value)=>handleItems('washrooms',value)} placeholder={"Enter Price.."} prop_type={form.pr_items['washrooms']} />
+                <div style={{height:'40px'}}>{errors?.pr_items_washrooms && <p style={{color:'red',marginTop:'1px'}}>Washrooms cannot be empty</p>}</div>
+                </div>
               </div>
             </div>
           </div>
@@ -424,7 +484,7 @@ function Properties() {
             <div className={classes.icon} style={{ height: '30%' }}><AiOutlineHome size={15} style={{ backgroundColor: 'transparent' }} /></div>
             <div className={classes.text} style={{ display: 'flex' }}>
               <h6>Add Extra Features</h6>
-              <Input placeholder={"Add Features ..."} type={'textarea'} setter={setForm(prev=>({...prev,...prev.additional_information}))} prop_type={form.additional_information}/>
+              <Input placeholder={"Add Features ..."} type={'textarea'} setter={(value)=>setForm(prev=>({...prev,additional_information:value}))} prop_type={form.additional_information}/>
             </div>
           </div>
         </div>

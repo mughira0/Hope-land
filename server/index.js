@@ -9,13 +9,14 @@ app.use(cors());
 const port = process.env.PORT || 8000;
 
 import authRoutes from "./routes/authRoutes.js";
-import packageRoutes from "./routes/packageRoutes.js";
 import stripeRoutes from "./routes/stripeRoutes.js";
 app.use("/api/auth", authRoutes);
 
-
+import sellerRoutes from './routes/sellerRoutes.js'
 import packageRoutes from "./routes/packageRoutes.js";
 app.use("/api/admin", packageRoutes);
+
+app.use("/api/seller",sellerRoutes);
 app.use("/api/stripe", stripeRoutes);
 
 app.listen(port, () => {

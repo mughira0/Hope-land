@@ -10,6 +10,12 @@ const DropDown = ({
   value,
   isMulti = false,
 }) => {
+
+  const handleChange=(selectedOption)=>{
+    const selectedvalue = selectedOption
+
+    setter(selectedvalue)
+  }
   return (
     <>
       <style>
@@ -37,7 +43,7 @@ const DropDown = ({
         {label && <label>{label}</label> }
         <Select
           isMulti={isMulti}
-          onChange={setter}
+          onChange={handleChange}
           value={value}
           className="basic-single"
           classNamePrefix="select"

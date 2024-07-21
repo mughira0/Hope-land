@@ -8,6 +8,7 @@ import "./App.css";
 import Loader from "./Components/Loader";
 import BeforeLoginRoute from "./Helper/BeforeLoginRoute";
 import ProtectedRoute from "./Helper/ProtectedRoute";
+import Properties from "./Screens/Seller/Properties";
 
 const Login = lazy(() => import("./Screens/Login"));
 const Signup = lazy(() => import("./Screens/Signup"));
@@ -17,6 +18,7 @@ const Subscription = lazy(() => import("./Screens/Seller/Subscription"));
 const AdminDashboard = lazy(() => import("./Screens/Admin/Dashboard"));
 const Packages = lazy(() => import("./Screens/Admin/Packages"));
 const AddEditPackages = lazy(() => import("./Screens/Admin/AddEditPackage"));
+
 function App() {
   return (
     <>
@@ -40,7 +42,8 @@ function App() {
             <Route
               path="/"
               exact
-              element={<BeforeLoginRoute element={<Home />} />}
+              element={
+              <Home />}
             />
 
             {/* Seller Routes */}
@@ -59,6 +62,16 @@ function App() {
               exact
               element={
                 <ProtectedRoute file={<Subscription />} path="/subscription" />
+              }
+            />
+            <Route
+              path="/properties"
+              exact
+              element={
+                <ProtectedRoute
+                  file={<SellerDashboard file={<Properties />} />}
+                  path="/properties"
+                />
               }
             />
 
