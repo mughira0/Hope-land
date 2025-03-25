@@ -7,11 +7,17 @@ import "../node_modules/react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import Loader from "./Components/Loader";
 import BeforeLoginRoute from "./Helper/BeforeLoginRoute";
-import SellerDashboard from "./Screens/SellerDashboard/index"
+import ProtectedRoute from "./Helper/ProtectedRoute";
+import Properties from "./Screens/Seller/Properties";
 
 const Login = lazy(() => import("./Screens/Login"));
 const Signup = lazy(() => import("./Screens/Signup"));
-const Home = lazy(() => import("./Screens/Home"));
+const Home = lazy(() => import("./Screens/Customer/Home"));
+const SellerDashboard = lazy(() => import("./Screens/Seller/SellerDashboard"));
+const Subscription = lazy(() => import("./Screens/Seller/Subscription"));
+const AdminDashboard = lazy(() => import("./Screens/Admin/Dashboard"));
+const Packages = lazy(() => import("./Screens/Admin/Packages"));
+const AddEditPackages = lazy(() => import("./Screens/Admin/AddEditPackage"));
 
 function App() {
   return (
@@ -32,14 +38,72 @@ function App() {
               exact
               element={<BeforeLoginRoute file={<Signup />} />}
             />
-            <Route path="/" exact element={<Home />} />
-            <Route path="/seller" element={<SellerDashboard/>}/>
-            {/* <Route path="/courses" exact element={<Courses />} /> */}
-            {/* <Route
-              path="/courses"
+            {/* Customer Routes */}
+            <Route
+              path="/"
               exact
-              element={<ProtectedRoute file={<Courses />} />}
-            /> */}
+              element={
+              <Home />}
+            />
+
+            {/* Seller Routes */}
+            <Route
+              path="/seller-dashboard"
+              exact
+              element={
+                <ProtectedRoute
+                  file={<SellerDashboard />}
+                  path="/seller-dashboard"
+                />
+              }
+            />
+            <Route
+              path="/subscription"
+              exact
+              element={
+                <ProtectedRoute file={<Subscription />} path="/subscription" />
+              }
+            />
+            <Route
+              path="/properties"
+              exact
+              element={
+                <ProtectedRoute
+                  file={<SellerDashboard file={<Properties />} />}
+                  path="/properties"
+                />
+              }
+            />
+
+            {/* Admin Routes */}
+            <Route
+              path="/admin-dashboard"
+              exact
+              element={
+                <ProtectedRoute
+                  file={<AdminDashboard />}
+                  path="/admin-dashboard"
+                />
+              }
+            />
+
+            <Route
+              path="/packages"
+              exact
+              element={<ProtectedRoute file={<Packages />} path="/packages" />}
+            />
+            <Route
+              path="/add-edit-package"
+              exact
+              element={
+                // <ProtectedRoute
+                // file={
+                <AddEditPackages />
+                // }
+                // path="/add-edit-package"
+                // />
+              }
+            />
           </Routes>
         </Router>
       </Suspense>

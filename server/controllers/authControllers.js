@@ -5,9 +5,11 @@ import { handleGenerateToken } from "../utils/utils.js";
  * ? Signup Controller
  **/
 export const handleSignUp = async (req, res) => {
+
+  console.log("SignUp")
   // spem
   try {
-    const { email, fullName, password, birthDate, gender } = req.body;
+    const { email, fullName, password, birthDate, gender, role } = req.body;
     const body = req.body;
     for (const key in body) {
       if (!body[key]) {
@@ -39,12 +41,14 @@ export const handleSignUp = async (req, res) => {
     const newUser = await userModel.create({
       email,
       fullName,
-
+      role,
       password: hashPassword,
       birthDate,
       gender,
       profilePic,
     });
+
+    console.log(newUser)
     res.status(201).send({
       status: true,
       message: `User created Successfully`,
@@ -57,6 +61,7 @@ export const handleSignUp = async (req, res) => {
         profilePic: newUser?.profilePic,
         createdAt: newUser?.createdAt,
         updatedAt: newUser?.updatedAt,
+        role: newUser?.role,
       },
     });
   } catch (err) {
@@ -71,11 +76,12 @@ export const handleSignUp = async (req, res) => {
  * ? Login Controller
  **/
 export const handleLoginUp = async (req, res) => {
+  console.log("Login")
   try {
     const { email, password } = req.body;
     console.log(req.body);
     const user = await userModel.findOne({ email });
-    console.log(user);
+    console.log("data :",user);
 
     if (!user) {
       return res.status(400).send({
@@ -84,11 +90,10 @@ export const handleLoginUp = async (req, res) => {
       });
     }
     const samePassword = await bcrypt.compare(password, user?.password);
-    console.log(samePassword);
     if (!samePassword) {
       return res.status(400).send({
         status: false,
-        message: "Invalid Credentialsssss",
+        message: "Invalid Credentials",
       });
     }
     const token = handleGenerateToken(user._id);

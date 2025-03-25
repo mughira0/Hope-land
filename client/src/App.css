@@ -5,13 +5,16 @@
   --white-color: #ffffff;
   --black-color: #000000;
   --text-color: #a3bac3;
-  --light-gray: #dddddd;
+  --light-gray: #c0bebe;
   --light-black-color: #0a0a0a;
   --btn-color: #003d4d;
   --ff-primary-bold: "poppin-bold";
+  --ff-primary-medium: "poppin-medium";
+  --ff-primary-regular: "poppin-regular";
+  --ff-primary-semiBold: "poppin-semiBold";
 }
 @font-face {
-  font-family: "bold";
+  font-family: "poppin-bold";
   src: url("./Assets/Font/static/PlayfairDisplay-Bold.otf");
 }
 @font-face {
@@ -19,11 +22,11 @@
   src: url("./Assets/Font/Poppins/Poppins-SemiBold.ttf");
 }
 @font-face {
-  font-family: "medium";
+  font-family: "poppin-medium";
   src: url("./Assets/Font//static/PlaywriteAUQLD-Regular.ttf");
 }
 @font-face {
-  font-family: "regular";
+  font-family: "poppin-regular";
   src: url("./Assets/Font/static/Exo-Medium.otf");
 }
 * {

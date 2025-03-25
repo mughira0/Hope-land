@@ -1,0 +1,137 @@
+.properties{
+    width:100%;
+    height:500vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.ls_icon{
+    background-color: rgb(232, 231, 231);
+    width:25%;
+    margin: 4% 36%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    height:70px;
+}
+.purpose{
+    width:100%;
+    height: max-content;
+    background-color: white;
+    margin-bottom: 2%;
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.left_side{
+    width:25%;
+    height:100%;
+    text-align: center;
+    background-color: var(--main-color);
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    padding-top: 15%;
+}
+
+.right_side{
+    padding:2% 0 2% 0%;
+    width:75%;
+    height:max-content;
+    background-color:white;
+}
+
+.r1{
+    width: 90%;
+    display: flex;
+    margin-bottom: 40px;
+}
+
+/* .r2{
+    width:90%;
+    display:flex;
+    height:30%;
+    margin-top:5%;
+} */
+
+.text { 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width:90%;
+    height:100%;
+}
+.choices{
+    width: 100%;
+    display: flex;
+    gap:5px;
+    align-items: center;
+    margin-top: 2%;
+    height:70%;
+    flex-wrap: wrap;
+}
+.btn_cmp{
+    width:75%;
+    height:40%;
+    display: flex;
+    align-items: center;
+    padding: 0% 1%;
+    border-bottom: 1px solid rgb(189, 187, 187);
+}
+.property_btn{
+    width:35%;
+    height:100%;
+    display: flex;
+    cursor:pointer;
+    justify-content: center;
+    align-items: center;
+    margin:0% 1%;
+    border : none
+}
+.icon{
+    width:4%;
+    text-align: center;
+    margin:0% 2% 0% 1%;
+    background-color: beige;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 25px;
+}
+
+.area_tags{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.ToggleButton{
+    margin-top: 2%;
+}
+
+.installment_setting{
+    margin-top: 0;
+    width:90%;
+    margin-left:5%;
+}
+
+.image_div{
+    background-color: aquamarine;
+    height: 90%;
+    width:90%;
+    border-style: dashed;
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.image_div_buttons{
+    background-color: rgb(4, 240, 4);
+    width:55%;
+    height:80%;
+}

@@ -5,7 +5,7 @@ import DropDown from "../../Components/DropDown";
 import Input from "../../Components/Input/Input";
 import ModalSkeleton from "../../Components/ModalSkeleton/ModalSkeleton";
 import { handleYearsOptions } from "../../Config/apiUrl";
-import classes from "./AddEditCourseModal.module.css";
+import classes from "./checkoutModal.module.css";
 const statusOptions = [
   { label: "Active", value: "active" },
   { label: "Inactive", value: "inactive" },
